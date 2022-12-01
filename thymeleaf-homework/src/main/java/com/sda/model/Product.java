@@ -12,12 +12,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String itemName;
+    private String item;
 
     private long price;
 
-    public Product(String itemName, long price) {
-        this.itemName = itemName;
+    public Product(String item, long price) {
+        this.item = item;
         this.price = price;
     }
 
@@ -32,12 +32,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getItem() {
+        return item;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItem(String item) {
+        this.item = item;
     }
 
     public long getPrice() {

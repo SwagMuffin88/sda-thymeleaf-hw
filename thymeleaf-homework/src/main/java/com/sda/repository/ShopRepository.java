@@ -1,14 +1,17 @@
 package com.sda.repository;
 
 import com.sda.model.Product;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ShopRepository extends CrudRepository<Product, Long> {
+public interface ShopRepository extends CrudRepository<Product, Integer> {
     List<Product> findAll();
-    Product findByItemName(String itemName);
-    List<Product> findByPrice(long id);
+    //Custom query
+    @Query(value = "select * from product p where p.item like %:keyword% ", nativeQuery = true)
+    List<Product> findProductsByKeyword(@Param("keyword") String keyword);
 }
