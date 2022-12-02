@@ -7,24 +7,22 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
+<body>
 <h3 style="padding: 40px 60px 0">Search</h3>
 <form style="padding-left: 60px" th:action="@{/search}" method="get">
     <input type="text" name="keyword" th:value="${keyword}"
            placeholder="Find by Product Name" size="50" >
     <button type="submit" class="btn btn-info" >Search</button>
 </form>
-<form style="padding-left: 60px; float-displace: 10px" th:action="@{/price-highest}" method="get">
-    <button type="submit" class="btn btn-info" >Sort by price (high->low)</button>
-</form>
 <form style="padding-left: 60px; float-displace: 10px" th:action="@{/}" method="get">
     <button type="submit" class="btn btn-info" >Reset</button>
 </form>
-<div th:switch="${listOfFoundProducts}" class="container my-5">
+<div th:switch="${listOfSortedProducts}" class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            <h2 th:case="null">Product not found!</h2>
+            <h2 th:case="null">No products yet!</h2>
             <div th:case="*">
-                <h2 class="my-5">Products</h2>
+                <h2 class="my-5">Products (price high to low)</h2>
                 <table class="table table-striped table-responsive-md">
                     <thead>
                     <tr>
@@ -33,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product : ${listOfFoundProducts}">
+                    <tr th:each="product : ${listOfSortedProducts}">
                         <td th:text="${product.item}"></td>
                         <td th:text="${product.price}"></td>
                     </tr>
@@ -43,3 +41,4 @@
         </div>
     </div>
 </div>
+</body>

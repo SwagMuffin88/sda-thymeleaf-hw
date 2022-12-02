@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,10 +30,22 @@ public class ShopController {
         return "index";
     }
     @RequestMapping(path ={"/","/search"})
-    public String displayFoundProduct(Product product, Model model, String keyword) {
+    public String displayFoundProduct(Model model, String keyword) {
         List<Product> list = service.getByKeyword(keyword);
         model.addAttribute("listOfFoundProducts", list);
         return "search";
+    }
+    @GetMapping("/price-filter")
+    public String sortProductsHighestFirst(Model model) {
+        List<Product> sortedProducts = repository.findAllByOrderByPriceDesc();
+        model.addAttribute("listOfSortedProducts", sortedProducts);
+        return "sort-products";
+    }
 
+    @RequestMapping("/price-filter")
+    public String filterProductsPriceHigherOrEqual(Model model, double input) {
+        List<Product> productsFilteredByInputPrice = repository.findAllByPriceGreaterThanOrPriceEquals(input);
+        model.addAttribute("listOfInputFilteredProducts", productsFilteredByInputPrice);
+        return "filter-products";
     }
 }
