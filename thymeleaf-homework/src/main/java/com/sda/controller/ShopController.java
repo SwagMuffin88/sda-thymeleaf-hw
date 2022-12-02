@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ShopController {
         model.addAttribute("listOfFoundProducts", list);
         return "search";
     }
-    @GetMapping("/price-filter")
+    @GetMapping("/price-highest")
     public String sortProductsHighestFirst(Model model) {
         List<Product> sortedProducts = repository.findAllByOrderByPriceDesc();
         model.addAttribute("listOfSortedProducts", sortedProducts);
@@ -43,7 +44,7 @@ public class ShopController {
     }
 
     @RequestMapping("/price-filter")
-    public String filterProductsPriceHigherOrEqual(Model model, double input) {
+    public String filterProductsPriceHigherOrEqual(Model model, @RequestParam double input) {
         List<Product> productsFilteredByInputPrice = repository.findAllByPriceGreaterThanOrPriceEquals(input);
         model.addAttribute("listOfInputFilteredProducts", productsFilteredByInputPrice);
         return "filter-products";
