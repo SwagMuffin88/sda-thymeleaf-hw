@@ -14,8 +14,8 @@
            placeholder="Find by Product Name" size="50" >
     <button type="submit" class="btn btn-info" >Search</button>
 </form>
-<form style="padding-left: 60px" th:action="@{/price-filter}" method="get">
-    <input type="text" name="input" th:value="${input}"
+<form style="padding-left: 60px" th:action="@{/search}" method="get">
+    <input type="text" name="input" th:value="${price_gt}"
            placeholder="Filter products by price:" size="50" >
     <button type="submit" class="btn btn-info" >Filter</button>
 </form>

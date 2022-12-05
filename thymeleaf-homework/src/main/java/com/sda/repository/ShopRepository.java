@@ -16,6 +16,10 @@ public interface ShopRepository extends CrudRepository<Product, Integer> {
     List<Product> findProductsByKeyword(@Param("keyword") String keyword);
     List<Product> findAllByOrderByPriceDesc();
 
-    @Query(value = "select * from product p where p.price > %:input%", nativeQuery = true)
-    List<Product> findAllByPriceGreaterThanOrPriceEquals(@Param("input") double input);
+    @Query(value = "select * from product p where p.price > :price_gt", nativeQuery = true)
+    List<Product> findAllByPriceGreaterThanOrPriceEquals(@Param("price_gt") Double price_gt);
+
+    @Query(value = "select * from product p where p.item like %:keyword% and p.price > :input", nativeQuery = true)
+    List<Product> findProductsByKeywordAndPriceGreaterThanOrPriceEquals(
+            @Param("keyword") String keyword, @Param("input") double input);
 }
